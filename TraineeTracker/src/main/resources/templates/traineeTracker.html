@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Weekly Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/traineeTracker.css}">
+    <script src="https://kit.fontawesome.com/ef4342f3da.js" crossorigin="anonymous"></script>
+
+
+    <style>
+      button#logout {
+        font-size: 1.5rem;
+        padding: 5px 10px 5px 5px;
+        color: white;
+        text-decoration: none;
+        border: none;
+        background-color: transparent;
+      }
+
+      button#logout:hover {
+        color: #e33661;
+        font-size: 1.75rem;
+      }
+
+      button#logout > i {
+        padding: 0 10px;
+      }
+
+      button#submit {
+        background-color: black;
+        color: white;
+        padding: 5px;
+        margin-top: 10px;
+        border-radius: 5px;
+      }
+
+      button#submit:hover {
+        background-color: #e33661;
+        color: black;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a th:href="@{/web/traineeHomepage}">
+            <img src="../static/images/sparta-img.png" th:src="@{/images/sparta-img.png}" alt="Sparta Global Logo"/>
+          </a>
+        </li>
+        <li>
+          <form th:action="@{/web/logout}" method="post" >
+            <button type="submit" id="logout">Logout<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+   <main id="content">
+      <section>
+        <h2><span>Week </span><span th:text="${trackerWeek.getWeek()}"></span><span> Tracker</span> </h2>
+      </section>
+
+      <p>Trainee Self Feedback</p>
+      <form th:action="@{'/web/edit'}" th:object="${trackerWeek}" method="POST">
+        <label for="start">Start:</label>
+        <input class="info" type="text" id="start" name="start" th:field="*{start}"/>
+
+        <label for="stop">Stop:</label>
+        <input class="info" type="text" id="stop" name="stop"  th:field="*{stop}">
+
+        <label for="continue">Continue:</label>
+        <input class="info" type="text" id="continue" name="continue" th:field="*{continueField}">
+
+        <label for="comments">Comments:</label>
+        <input class="info" type="text" id="comments" name="comments" th:field="*{comment}">
+
+
+        <section class="flex-container">
+          <div>
+            <p>Technical Skills:</p>
+            <div class="radio-toolbar">
+
+              <input type="radio" id="techSkilled" name="technicalSkills" value="Skilled" th:field="${trackerWeek.technicalSkills}">
+              <label for="techSkilled" title="Skilled: You are performing at the highest level and delivering more than expected">Skilled</label>
+
+              <input type="radio" id="techPartiallySkilled" name="technicalSkills" value="Partially Skilled" th:field="${trackerWeek.technicalSkills}">
+              <label for="techPartiallySkilled" title="Partially Skilled: You are working well and delivering what is expected and you are passing all assessments and assignments">Partially Skilled</label>
+
+              <input type="radio" id="techLowSkilled" name="technicalSkills" value="Low Skilled" th:field="${trackerWeek.technicalSkills}">
+              <label for="techLowSkilled" title="Low Skilled: You are working hard but may be struggling a little with assessments and assignments but with the right attitude you will get there with the right work">Low Skilled</label>
+
+              <input type="radio" id="techUnSkilled" name="technicalSkills" value="Unskilled" th:field="${trackerWeek.technicalSkills}">
+              <label for="techUnSkilled" title="Unskilled: You are failing assessments and assignments consistently and you have been having regular conversations with your trainer about your performance and attitude towards the training">Unskilled</label>
+            </div>
+          </div>
+
+          <br>
+
+
+          <div>
+            <p>Soft Skills:</p>
+
+            <div class="radio-toolbar">
+
+              <input type="radio" id="softSkilled" name="softSkills" value="Skilled" th:field="${trackerWeek.softSkills}">
+              <label for="softSkilled" title="Skilled: You are performing at the highest level and delivering more than expected">Skilled</label>
+
+              <input type="radio" id="softPartiallySkilled" name="softSkills" value="Partially Skilled" th:field="${trackerWeek.softSkills}">
+              <label for="softPartiallySkilled" title="Partially Skilled: You are working well and delivering what is expected and you are passing all assessments and assignments">Partially Skilled</label>
+
+              <input type="radio" id="softLowSkilled" name="softSkills" value="Low Skilled" th:field="${trackerWeek.softSkills}">
+              <label for="softLowSkilled" title="Low Skilled: You are working hard but may be struggling a little with assessments and assignments but with the right attitude you will get there with the right work">Low Skilled</label>
+
+              <input type="radio" id="softUnSkilled" name="softSkills" value="Unskilled" th:field="${trackerWeek.softSkills}">
+              <label for="softUnSkilled" title="Unskilled: You are failing assessments and assignments consistently and you have been having regular conversations with your trainer about your performance and attitude towards the training">Unskilled</label>
+            </div>
+          </div>
+
+          <input type = "hidden" id="id" name = "id" th:field="*{id}"/>
+          <input type = "hidden" id="week" name = "week" th:field="*{week}"/>
+          <input type = "hidden" id="user" name = "user" th:field="*{trainee}"/>
+        </section>
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>

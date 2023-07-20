@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>View Trainees</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/viewTrainees.css}">
+    <script src="https://kit.fontawesome.com/ef4342f3da.js" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a th:href="@{/web/trainerHomepage}">
+            <img src="../static/images/sparta-img.png" th:src="@{/images/sparta-img.png}" alt="Sparta Global Logo"/>
+          </a>
+        </li>
+        <li>
+          <form th:action="@{/web/logout}" method="post" >
+            <button type="submit" id="logout">Logout<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>List of trainees</h1>
+
+
+      <section class="trainees-Wrapper">
+        <section class="trainees" th:each=" trainees : ${traineeList}">
+            <a th:href="@{'/viewTrainee/'+${trainees.getId()}}" th:text="${trainees.getFirstName()} + ' ' + ${trainees.getLastName()}">
+            </a>
+        </section>
+      </section>
+
+    </main>
+  </body>
+</html>

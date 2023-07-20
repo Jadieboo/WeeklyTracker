@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/css/traineeHomepage.css" th:href="@{/css/traineeHomepage.css}">
+    <script th:src="@{https://kit.fontawesome.com/ef4342f3da.js}" crossorigin="anonymous"></script>
+
+    <style>
+      button#logout {
+        font-size: 1.5rem;
+        padding: 5px 10px 5px 5px;
+        color: white;
+        text-decoration: none;
+        border: none;
+        background-color: transparent;
+      }
+
+      button#logout:hover {
+        color: #e33661;
+        font-size: 1.75rem;
+      }
+
+      button#logout > i {
+        padding: 0 10px;
+      }
+    </style>
+
+
+  </head>
+  <span ></span>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a th:href="@{/web/traineeHomepage}">
+            <img src="../static/images/sparta-img.png" th:src="@{/images/sparta-img.png}" alt="Sparta Global Logo"/>
+          </a>
+        </li>
+        <li >
+          <form th:action="@{/web/logout}" method="post" >
+            <button type="submit" id="logout">Logout<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+
+
+    <main>
+      <section class="trainee-info-flex-container">
+        <div class="profile-section">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="trainee-info">
+          <div>
+            <h1 th:text="${session.user.getUsername()}">Name</h1>
+          </div>
+
+          <div>
+            <h1><span ></span><span> </span><span th:text="${session.batch.getBatchName()}"></span></h1>
+          </div>
+        </div>
+
+      </section>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Week</th>
+            <th scope="col">Start</th>
+            <th scope="col">Stop</th>
+            <th scope="col">Continue</th>
+            <th scope="col">Technical Skills</th>
+            <th scope="col">Soft Skills</th>
+            <th scope="col">Comments</th>
+            <th scope="col">Edit this Week</th>
+          </tr>
+        </thead>
+          <tbody>
+          <tr>
+            <tr th:each="tracker : ${trackerInfo}">
+            <td th:text="${tracker.getWeek()}"></td>
+            <td th:text="${tracker.getStart()}"></td>
+            <td th:text="${tracker.getStop()}"></td>
+            <td th:text="${tracker.getContinueField()}"></td>
+            <td th:text="${tracker.getTechnicalSkills()}"></td>
+            <td th:text="${tracker.getSoftSkills()}"></td>
+            <td th:text="${tracker.getComment()}"></td>
+            <td><a class="editBtn" th:href="@{'/web/week/' + ${tracker.week}}">Edit</a></td>
+            </tr>
+          </tbody>
+      </table>
+    </main>
+  </body>
+</html>

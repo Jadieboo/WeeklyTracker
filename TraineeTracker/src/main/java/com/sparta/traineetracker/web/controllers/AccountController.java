@@ -44,7 +44,6 @@ public class AccountController {
     }
 
     @PostMapping
-
     public String processLogin(@ModelAttribute("loginDetails") AccountDTO accDet, Model model, HttpSession session) {
         Optional<Account> accOpt = accRepo.findByUsername(accDet.getUsername());
 
@@ -71,13 +70,17 @@ public class AccountController {
                     }
                     session.setAttribute("batches", batchList);
 
-
+                    // setting course list via related batches
                     List<Course> courseList = new ArrayList<>();
                     for (Batch batch: batchList){
-                        courseList.add(batch.getCourse());
+                        if (!courseList.contains(batch.getCourse())) {
+                            courseList.add(batch.getCourse());
+                            logger.info("course: {} for batch: {}, added to courseList", batch.getCourse(), batch);
+                        } else {
+                            logger.info("course: {} for batch: {}, already exists in courseList", batch.getCourse(), batch);
+                        }
                     }
                     session.setAttribute("courses", courseList);
-
 
                     return "loginSuccessTrainer";
                 }

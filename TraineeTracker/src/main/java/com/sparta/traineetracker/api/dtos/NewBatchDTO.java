@@ -8,8 +8,9 @@ public class NewBatchDTO {
 
     private String courseName;
     private String batchName;
-
     private Integer numOfWeeks;
+    private String trainerFirstName;
+    private String trainerLastName;
     private List<NewTraineeDTO> newTrainees;
     public String getCourseName() {
         return courseName;
@@ -33,6 +34,21 @@ public class NewBatchDTO {
 
     public void setNumOfWeeks(Integer numOfWeeks) {
         this.numOfWeeks = numOfWeeks;
+    }
+    public String getTrainerFirstName() {
+        return trainerFirstName;
+    }
+
+    public void setTrainerFirstName(String trainerFirstName) {
+        this.trainerFirstName = trainerFirstName;
+    }
+
+    public String getTrainerLastName() {
+        return trainerLastName;
+    }
+
+    public void setTrainerLastName(String trainerLastName) {
+        this.trainerLastName = trainerLastName;
     }
 
     public List<NewTraineeDTO> getNewTrainees() {

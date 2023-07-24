@@ -54,31 +54,30 @@ public class TraineeAPIController {
    @GetMapping("api/trainees/{batchName}")
     public ResponseEntity<String> getAllTrainees(@PathVariable String batchName, @RequestHeader(required = false) String key){
 
-       HttpHeaders headers=new HttpHeaders();
+       HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
 
-       if(key==null || apikeyRepo.findByApikey(key)==null ){
+       if (key == null || apikeyRepo.findByApikey(key) == null ){
            return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}",headers, HttpStatus.UNAUTHORIZED);
        }
 
+       // todo: delete this
+       ObjectMapper mapper = new ObjectMapper();
 
-       ObjectMapper mapper=new ObjectMapper();
+       Batch batch = batchRepo.findByBatchName(batchName);
+       List<UserBatch> myList = userBatchRepo.findByBatch(batch);
 
-       Batch batch=batchRepo.findByBatchName(batchName);
-       List<UserBatch> myList=userBatchRepo.findByBatch(batch);
+       List<TraineeDTO> trainees = new ArrayList<>();
 
-       List<TraineeDTO> trainees=new ArrayList<>();
+       List<EntityModel> myentityList = new ArrayList<>();
 
-       List<EntityModel> myentityList=new ArrayList<>();
+       for (UserBatch ub : myList) {
+           User user = ub.getUser();
+           Account account = accountRepo.findByUser(user);
+           if (account.getRole().equals("trainee")) {
 
-       for(UserBatch ub:myList){
-           User user=ub.getUser();
-           Account account=accountRepo.findByUser(user);
-           if(account.getRole().equals("trainee")){
-
-
-               EntityModel<TraineeDTO> entityModel=EntityModel.of(DTOConverter.toTraineeDTO(user));
-               WebMvcLinkBuilder trackerLink=WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getTracker(user.getId(),"abc"));
+               EntityModel<TraineeDTO> entityModel = EntityModel.of(DTOConverter.toTraineeDTO(user));
+               WebMvcLinkBuilder trackerLink = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getTracker(user.getId(),"abc"));
                entityModel.add(trackerLink.withRel("Tracker"));
                myentityList.add(entityModel);
 
@@ -86,7 +85,7 @@ public class TraineeAPIController {
            }
        }
 
-       String traineesString= JSONSerializer.serialiseEntityList(myentityList);
+       String traineesString = JSONSerializer.serialiseEntityList(myentityList);
 
        return new ResponseEntity<>(traineesString,headers, HttpStatus.OK);
 
@@ -95,13 +94,13 @@ public class TraineeAPIController {
    @GetMapping("api/trainee/{id}")
    public ResponseEntity<String> getTraineeById(@PathVariable int id){
 
-       HttpHeaders headers=new HttpHeaders();
+       HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
-       ObjectMapper mapper=new ObjectMapper();
+       ObjectMapper mapper = new ObjectMapper();
 
-        User trainee=userRepo.findById(id).get();
+        User trainee = userRepo.findById(id).get();
 
-        String traineeString=JSONSerializer.serialiseUser(trainee);
+        String traineeString = JSONSerializer.serialiseUser(trainee);
 
        return new ResponseEntity<>(traineeString,headers,HttpStatus.OK);
 
@@ -112,29 +111,29 @@ public class TraineeAPIController {
    @GetMapping("api/tracker/{id}")
     public ResponseEntity<String> getTracker(@PathVariable int id,@RequestHeader(required = false) String key){
 
-       HttpHeaders headers=new HttpHeaders();
+       HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
 
-       if(key==null || apikeyRepo.findByApikey(key)==null ){
+       if (key == null || apikeyRepo.findByApikey(key) == null) {
            return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}",headers, HttpStatus.UNAUTHORIZED);
        }
 
-       User user=userRepo.findById(id).get();
-       List<Tracker> trackerList=trackerRepo.findByTrainee(user);
-       List<TrackerDTO> trackerDTOList=new ArrayList<>();
+       User user = userRepo.findById(id).get();
+       List<Tracker> trackerList = trackerRepo.findByTrainee(user);
+       List<TrackerDTO> trackerDTOList = new ArrayList<>();
 
-       for(Tracker t:trackerList){
+       for (Tracker t : trackerList) {
            trackerDTOList.add(DTOConverter.toTrackerDTO(t));
        }
 
-       WebMvcLinkBuilder traineeLink=WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getTraineeById(id));
-       CollectionModel<TrackerDTO> collectionModel=CollectionModel.of(trackerDTOList);
+       WebMvcLinkBuilder traineeLink = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getTraineeById(id));
+       CollectionModel<TrackerDTO> collectionModel = CollectionModel.of(trackerDTOList);
        collectionModel.add(traineeLink.withRel("Trainee"));
 
 
-       ObjectMapper mapper=new ObjectMapper();
+       ObjectMapper mapper = new ObjectMapper();
 
-       String trackerString=JSONSerializer.serialiseCollection(collectionModel);
+       String trackerString = JSONSerializer.serialiseCollection(collectionModel);
 
        return new ResponseEntity<>(trackerString,headers, HttpStatus.OK);
 
@@ -142,51 +141,57 @@ public class TraineeAPIController {
 
 
    @PostMapping("api/addbatch")
-    public ResponseEntity<String> addNewbatch(@RequestBody NewBatchDTO newBatchDTO,@RequestHeader(required = false) String key){
+    public ResponseEntity<String> addNewbatch(@RequestBody NewBatchDTO newBatchDTO,@RequestHeader(required = false) String key) {
 
-
-       HttpHeaders headers=new HttpHeaders();
+       HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
 
-       if(key==null || apikeyRepo.findByApikey(key)==null ){
+       if (key == null || apikeyRepo.findByApikey(key) == null ){
            return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}",headers, HttpStatus.UNAUTHORIZED);
        }
 
-       Course course=courseRepo.findByCourseName(newBatchDTO.getCourseName());
+       Course course = courseRepo.findByCourseName(newBatchDTO.getCourseName());
 
-       if(batchRepo.findByBatchName(newBatchDTO.getBatchName())==null){
+       if (batchRepo.findByBatchName(newBatchDTO.getBatchName()) == null){
 
-           Batch newbatch=new Batch();
+           Batch newbatch = new Batch();
            newbatch.setCourse(course);
            newbatch.setBatchName(newBatchDTO.getBatchName());
            newbatch.setWeeks(newBatchDTO.getNumOfWeeks());
 
            //save the batch to DB
-           batchRepo.save(newbatch);
+           batchRepo.saveAndFlush(newbatch);
+
+           //updating user_batch table for trainer
+           UserBatch addUserBatch = new UserBatch();
+           addUserBatch.setUser(userRepo.findByFirstNameAndLastName(newBatchDTO.getTrainerFirstName(), newBatchDTO.getTrainerLastName()));
+           addUserBatch.setBatch(newbatch);
+
+           userBatchRepo.save(addUserBatch);
        }
 
-       Batch newlyAddedBatch=batchRepo.findByBatchName(newBatchDTO.getBatchName());
+       Batch newlyAddedBatch = batchRepo.findByBatchName(newBatchDTO.getBatchName());
 
-        for(NewTraineeDTO bDTO:newBatchDTO.getNewTrainees()){
+        for (NewTraineeDTO bDTO : newBatchDTO.getNewTrainees()) {
 
-            User trainee=new User();
+            User trainee = new User();
             trainee.setFirstName(bDTO.getFirstName());
             trainee.setLastName(bDTO.getLastName());
 
             //save trainee to DB
             userRepo.save(trainee);
-            User newlyAddedTrainee=userRepo.findByFirstNameAndLastName(bDTO.getFirstName(), bDTO.getLastName());
 
-            //updating user_batch table
-            UserBatch newUserBatch=new UserBatch();
+            //updating user_batch table for trainees
+            User newlyAddedTrainee = userRepo.findByFirstNameAndLastName(bDTO.getFirstName(), bDTO.getLastName());
+
+            UserBatch newUserBatch = new UserBatch();
             newUserBatch.setUser(newlyAddedTrainee);
             newUserBatch.setBatch(newlyAddedBatch);
 
             userBatchRepo.save(newUserBatch);
 
-            //upadting Account table
-
-            Account newAccount=new Account();
+            //updating Account table
+            Account newAccount = new Account();
             newAccount.setUser(newlyAddedTrainee);
             newAccount.setUsername(bDTO.getUserName());
             newAccount.setPassword(bDTO.getPassword());
@@ -194,19 +199,17 @@ public class TraineeAPIController {
 
             accountRepo.save(newAccount);
 
-            for(int i=1;i<=newBatchDTO.getNumOfWeeks();i++){
-                Tracker newTracker=new Tracker();
+            // create tracker entries
+            for(int i = 1; i <= newBatchDTO.getNumOfWeeks(); i++) {
+                Tracker newTracker = new Tracker();
                 newTracker.setWeek(i);
                 newTracker.setTrainee(newlyAddedTrainee);
 
                 trackerRepo.save(newTracker);
             }
-
-
         }
 
         return new ResponseEntity<>("{\"message\":\" Trainees successfully added to the database\"}",headers,HttpStatus.OK);
-
    }
 
 

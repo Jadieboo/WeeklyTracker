@@ -72,19 +72,12 @@
             <section id="rentalDuration" th:each="batch : ${batches}" th:if="${batch.getCourse() == course}">
               <a class="batch" th:text="${batch.getBatchName()}" th:href="@{'/viewTrainees/batch/'+ ${batch.getId()}}"></a>
             </section>
-
-
           </form>
         </section>
 
 
-
-
-
-
       </section>
-
-
     </main>
+
   </body>
 </html>

@@ -53,4 +53,11 @@ public class Batch {
         this.weeks = weeks;
     }
 
+    @Override
+    public String toString() {
+        return "Batch{" +
+                "id=" + id +
+                ", batchName='" + batchName + '\'' +
+                '}';
+    }
 }

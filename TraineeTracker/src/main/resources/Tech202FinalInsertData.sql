@@ -28,8 +28,16 @@ insert into account(user_id,username,password,role) values(5,'parmita','password
 
 insert into tracker(week,start,stop,continue_field,comment,technical_skills,soft_skills,trainee_id)
 values(1,'start','stop','continue','comments','Skilled','Skilled',3);
+
 insert into tracker(week,trainee_id) values(2,3);
 insert into tracker(week,trainee_id) values(3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3);
 insert into tracker(week,trainee_id) values(1,4),(2,4),(3,4),(4,4),(5,4),(6,4),(7,4),(8,4),(9,4),(10,4);
 insert into tracker(week,trainee_id) values(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),(8,5);
+
+insert into apikey(user_id,apikey) values(1,'abc');
+insert into apikey(user_id,apikey) values(2,'def');
+
+
+
+
 

@@ -1,5 +1,7 @@
-
+drop database tech202;
 create database Tech202;
+use tech202;
+
 
 create table users( user_id int primary key auto_increment,
 					first_name varchar(50) not null,
@@ -25,6 +27,7 @@ create table user_batch(user_batch_id int primary key auto_increment,
                         foreign key(batch_id) references batch(batch_id));   
                         
                         
+
 create table account(account_id int primary key auto_increment,
 					user_id int,
                     username varchar(50) not null,
@@ -43,7 +46,13 @@ create table tracker(tracker_id int primary key auto_increment,
                      soft_skills varchar(50),
                      trainee_id int,
                      foreign key(trainee_id) references users(user_id));
-                     
+
+drop table if exists apikey;
+
+create table apikey(api_id int primary key auto_increment,
+					user_id int,
+                    apikey varchar(50),
+                    foreign key(user_id) references users(user_id));
                      
                      
 		

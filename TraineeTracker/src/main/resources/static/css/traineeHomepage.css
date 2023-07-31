@@ -15,25 +15,6 @@ nav ul {
 nav ul li {
     list-style: none;
 }
-/*doesnt work in style sheet because of bootstrap*/
-
-/*button#logout {*/
-/*    font-size: 1.5rem;*/
-/*    padding: 15px 10px;*/
-/*    color: white;*/
-/*    text-decoration: none;*/
-/*    border: none;*/
-/*    background-color: transparent;*/
-/*}*/
-
-/*button#logout:hover {*/
-/*    color: #e33661;*/
-/*    font-size: 1.75rem;*/
-/*}*/
-
-/*button#logout > i {*/
-/*    padding: 0 10px;*/
-/*}*/
 
 main {
     width: 80%;
@@ -71,7 +52,6 @@ main {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    /*border: black solid 1px;*/
     align-items: center;
     justify-content: center;
 }

@@ -53,14 +53,6 @@ table {
     width: 100%;
 }
 
-/*.skillsOptions {*/
-/*    width: 100%;*/
-/*    padding: 10px;*/
-/*    margin: 10px;*/
-/*    text-align: center;*/
-/*    border-radius: 10px;*/
-/*}*/
-
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -138,54 +130,3 @@ table {
 
 }
 
-
-
-/*.radio-toolbar input[type="radio"]:nth-child(3):checked + label {*/
-/*    border: 2px solid black;*/
-/*    background-color: red;*/
-/*}*/
-/*.tooltip {*/
-/*    position: relative;*/
-/*    display: inline-block;*/
-/*    border-bottom: 1px dotted black;*/
-/*}*/
-
-/*.tooltip-text {*/
-/*    visibility: hidden;*/
-/*    width: 120px;*/
-/*    background-color: black;*/
-/*    color: #fff;*/
-/*    text-align: center;*/
-/*    border-radius: 6px;*/
-/*    padding: 5px 0;*/
-
-/*    !* Position the tooltip *!*/
-/*    position: absolute;*/
-/*    z-index: 1;*/
-/*}*/
-
-/*.tooltip-text:hover {*/
-/*    visibility: visible;*/
-/*}*/
-
-
-
-/*.skilledColour {*/
-/*    background-color: #61ee61;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*.partsColour {*/
-/*    background-color: #ffff6d;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*.lowColour {*/
-/*    background-color: orange;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*.unskilledColour {*/
-/*    background-color: #ff4646;*/
-/*    font-weight: 500;*/
-/*}*/

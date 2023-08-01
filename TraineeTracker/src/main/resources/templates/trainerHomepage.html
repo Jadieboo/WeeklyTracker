@@ -50,6 +50,7 @@
       <section class="apiLink">
         <a href="">Get API Key</a>
       </section>
+
       <section class="trainer-info-flex-container">
         <div class="profile-section">
           <i class="fa-solid fa-user"></i>
@@ -66,7 +67,7 @@
         </div>
       </section>
 
-        <!-- main-->
+      <!-- main-->
       <section class="allCourses">
         <section class="courseSection" th:each="course : ${courses}">
           <h1 class="courseName" th:text="${course.getCourseName()}"></h1>
@@ -77,8 +78,6 @@
           </form>
         </section>
       </section>
-
     </main>
-
   </body>
 </html>

@@ -40,7 +40,6 @@
         color: black;
       }
     </style>
-
   </head>
 
   <body>
@@ -59,7 +58,7 @@
       </ul>
     </nav>
 
-   <main id="content">
+    <main id="content">
       <section>
         <h2><span>Week </span><span th:text="${trackerWeek.getWeek()}"></span><span> Tracker</span> </h2>
       </section>
@@ -78,12 +77,10 @@
         <label for="comments">Comments:</label>
         <input class="info" type="text" id="comments" name="comments" th:field="*{comment}">
 
-
         <section class="flex-container">
           <div>
             <p>Technical Skills:</p>
             <div class="radio-toolbar">
-
               <input type="radio" id="techSkilled" name="technicalSkills" value="Skilled" th:field="${trackerWeek.technicalSkills}">
               <label for="techSkilled" title="Skilled: You are performing at the highest level and delivering more than expected">Skilled</label>
 
@@ -100,12 +97,10 @@
 
           <br>
 
-
           <div>
             <p>Soft Skills:</p>
 
             <div class="radio-toolbar">
-
               <input type="radio" id="softSkilled" name="softSkills" value="Skilled" th:field="${trackerWeek.softSkills}">
               <label for="softSkilled" title="Skilled: You are performing at the highest level and delivering more than expected">Skilled</label>
 

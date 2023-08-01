@@ -28,7 +28,7 @@
       }
     </style>
   </head>
-  <span ></span>
+
   <body>
     <nav>
       <ul>
@@ -60,7 +60,6 @@
             <h1><span th:text="${batch.getBatchName()}"></span><span> </span><span th:text="${batch.getCourse().getCourseName()}"></span></h1>
           </div>
         </div>
-
       </section>
 
       <table class="table">
@@ -75,9 +74,9 @@
             <th scope="col">Comments</th>
           </tr>
         </thead>
-          <tbody>
-          <tr>
-            <tr th:each="tracker : ${traineeTracker}">
+
+        <tbody>
+          <tr th:each="tracker : ${traineeTracker}">
             <td th:text="${tracker.getWeek()}"></td>
             <td th:text="${tracker.getStart()}"></td>
             <td th:text="${tracker.getStop()}"></td>
@@ -85,8 +84,8 @@
             <td th:text="${tracker.getTechnicalSkills()}"></td>
             <td th:text="${tracker.getSoftSkills()}"></td>
             <td th:text="${tracker.getComment()}"></td>
-            </tr>
-          </tbody>
+          </tr>
+        </tbody>
       </table>
     </main>
   </body>

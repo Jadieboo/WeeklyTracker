@@ -27,7 +27,6 @@
         padding: 0 10px;
       }
     </style>
-
   </head>
 
   <body>
@@ -61,7 +60,6 @@
             <h1><span ></span><span> </span><span th:text="${session.batch.getBatchName()}"></span></h1>
           </div>
         </div>
-
       </section>
 
       <table class="table">
@@ -77,7 +75,8 @@
             <th scope="col">Edit this Week</th>
           </tr>
         </thead>
-          <tbody>
+
+        <tbody>
           <tr>
             <tr th:each="tracker : ${trackerInfo}">
             <td th:text="${tracker.getWeek()}"></td>
@@ -88,8 +87,8 @@
             <td th:text="${tracker.getSoftSkills()}"></td>
             <td th:text="${tracker.getComment()}"></td>
             <td><a class="editBtn" th:href="@{'/web/week/' + ${tracker.week}}">Edit</a></td>
-            </tr>
-          </tbody>
+          </tr>
+        </tbody>
       </table>
     </main>
   </body>

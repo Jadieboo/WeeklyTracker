@@ -52,13 +52,13 @@ public class TraineeAPIController {
     private CourseRepository courseRepo;
 
    @GetMapping("api/trainees/{batchName}")
-    public ResponseEntity<String> getAllTrainees(@PathVariable String batchName, @RequestHeader(required = false) String key){
+    public ResponseEntity<String> getAllTrainees(@PathVariable String batchName, @RequestHeader(required = false) String key) {
 
        HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
 
        if (key == null || apikeyRepo.findByApikey(key) == null ){
-           return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}",headers, HttpStatus.UNAUTHORIZED);
+           return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}", headers, HttpStatus.UNAUTHORIZED);
        }
 
        // todo: delete this
@@ -87,12 +87,12 @@ public class TraineeAPIController {
 
        String traineesString = JSONSerializer.serialiseEntityList(myentityList);
 
-       return new ResponseEntity<>(traineesString,headers, HttpStatus.OK);
+       return new ResponseEntity<>(traineesString, headers, HttpStatus.OK);
 
    }
 
    @GetMapping("api/trainee/{id}")
-   public ResponseEntity<String> getTraineeById(@PathVariable int id){
+   public ResponseEntity<String> getTraineeById(@PathVariable int id) {
 
        HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
@@ -102,14 +102,14 @@ public class TraineeAPIController {
 
         String traineeString = JSONSerializer.serialiseUser(trainee);
 
-       return new ResponseEntity<>(traineeString,headers,HttpStatus.OK);
+       return new ResponseEntity<>(traineeString, headers, HttpStatus.OK);
 
 
    }
 
 
    @GetMapping("api/tracker/{id}")
-    public ResponseEntity<String> getTracker(@PathVariable int id,@RequestHeader(required = false) String key){
+    public ResponseEntity<String> getTracker(@PathVariable int id, @RequestHeader(required = false) String key) {
 
        HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
@@ -141,18 +141,18 @@ public class TraineeAPIController {
 
 
    @PostMapping("api/addbatch")
-    public ResponseEntity<String> addNewbatch(@RequestBody NewBatchDTO newBatchDTO,@RequestHeader(required = false) String key) {
+    public ResponseEntity<String> addNewbatch(@RequestBody NewBatchDTO newBatchDTO, @RequestHeader(required = false) String key) {
 
        HttpHeaders headers = new HttpHeaders();
        headers.add("Content-Type","application/json");
 
        if (key == null || apikeyRepo.findByApikey(key) == null ){
-           return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}",headers, HttpStatus.UNAUTHORIZED);
+           return new ResponseEntity<String>("{\"message\":\"Unauthorised access \"}", headers, HttpStatus.UNAUTHORIZED);
        }
 
        Course course = courseRepo.findByCourseName(newBatchDTO.getCourseName());
 
-       if (batchRepo.findByBatchName(newBatchDTO.getBatchName()) == null){
+       if (batchRepo.findByBatchName(newBatchDTO.getBatchName()) == null) {
 
            Batch newbatch = new Batch();
            newbatch.setCourse(course);
@@ -209,7 +209,7 @@ public class TraineeAPIController {
             }
         }
 
-        return new ResponseEntity<>("{\"message\":\" Trainees successfully added to the database\"}",headers,HttpStatus.OK);
+        return new ResponseEntity<>("{\"message\":\" Trainees successfully added to the database\"}", headers, HttpStatus.OK);
    }
 
 

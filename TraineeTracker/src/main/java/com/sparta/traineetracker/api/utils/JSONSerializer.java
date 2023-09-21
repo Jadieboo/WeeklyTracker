@@ -11,9 +11,9 @@ import java.util.List;
 
 public class JSONSerializer {
 
-    private static ObjectMapper mapper=new ObjectMapper();
+    private static ObjectMapper mapper = new ObjectMapper();
 
-    public static String serialiseEntityList(List<EntityModel> list){
+    public static String serialiseEntityList(List<EntityModel> list) {
         try {
             return mapper.writeValueAsString(list);
         } catch (JsonProcessingException e) {
@@ -21,7 +21,7 @@ public class JSONSerializer {
         }
     }
 
-    public static String serialiseUser(User user){
+    public static String serialiseUser(User user) {
         try {
             return mapper.writeValueAsString(user);
         } catch (JsonProcessingException e) {
@@ -29,7 +29,7 @@ public class JSONSerializer {
         }
     }
 
-    public static String serialiseCollection(CollectionModel<TrackerDTO> collectionModel){
+    public static String serialiseCollection(CollectionModel<TrackerDTO> collectionModel) {
 
         try {
             return mapper.writeValueAsString(collectionModel);

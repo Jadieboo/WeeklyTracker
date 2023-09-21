@@ -7,17 +7,16 @@ import com.sparta.traineetracker.entities.User;
 
 public class DTOConverter {
 
-    public static TraineeDTO toTraineeDTO(User user){
+    public static TraineeDTO toTraineeDTO(User user) {
 
-        TraineeDTO tDTO=new TraineeDTO();
-        tDTO.setName(user.getFirstName()+" "+user.getLastName());
+        TraineeDTO tDTO = new TraineeDTO();
+        tDTO.setName(user.getFirstName() + " " + user.getLastName());
         return tDTO;
-
     }
 
-    public static TrackerDTO toTrackerDTO(Tracker tracker){
+    public static TrackerDTO toTrackerDTO(Tracker tracker) {
 
-        TrackerDTO tDTO=new TrackerDTO();
+        TrackerDTO tDTO = new TrackerDTO();
 
         tDTO.setWeek(tracker.getWeek());
         tDTO.setStart(tracker.getStart());
